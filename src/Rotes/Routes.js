@@ -1,3 +1,5 @@
+import Appointment from '../Pages/Appointments/Appointment/Appointment';
+
 const { createBrowserRouter } = require('react-router-dom');
 const { default: Main } = require('../Layout/Main');
 const { default: Home } = require('../Pages/Home/HomeMain/Home');
@@ -16,6 +18,10 @@ const router = createBrowserRouter([
         path: '/login',
         element: <Login></Login>,
       },
+      {
+        path: '/appointment',
+        element: <Appointment></Appointment>
+      }
     ],
   },
 ]);
