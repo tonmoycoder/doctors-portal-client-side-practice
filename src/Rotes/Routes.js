@@ -1,6 +1,10 @@
+import DashboardLayout from '../Layout/DashboardLayout';
 import Appointment from '../Pages/Appointments/Appointment/Appointment';
+import AllUsers from '../Pages/Dashboard/AllUsers/AllUsers';
 import Dashboard from '../Pages/Dashboard/Dashboard/Dashboard';
+import MyAppointment from '../Pages/Dashboard/MyAppointment/MyAppointment';
 import SignUp from '../Pages/UserRegister/SignUp/SignUp';
+import AdminRoute from './AdminRoute/AdminRoute';
 import PrivateRoute from './PrivateRoute'
 
 const { createBrowserRouter } = require('react-router-dom');
@@ -33,7 +37,17 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    children: [
+      {
+        path: '/dashboard',
+        element: <MyAppointment></MyAppointment>
+      },
+      {
+        path: '/dashboard/allUsers',
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+      },
+    ]
   }
 ]);
 
