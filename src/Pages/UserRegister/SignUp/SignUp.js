@@ -18,10 +18,9 @@ const SignUp = () => {
   const [createdUserEmail, setCreateUserEmail] = useState('');
   const [token] = useToken(createdUserEmail);
 
-  if(token){
-    navigate('/')
+  if (token) {
+    navigate('/');
   }
-
 
   const handleSignUp = (data) => {
     setSignUPError('');
@@ -54,8 +53,7 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-       
-        setCreateUserEmail(email)
+        setCreateUserEmail(email);
       });
   };
 
