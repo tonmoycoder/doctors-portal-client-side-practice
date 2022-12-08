@@ -9,28 +9,32 @@ const AvailAppointment = ({ selectedDate }) => {
   // const [appointmentOptions, setAppointmentOptions] = useState([]);
   const [treatment, setTreatment] = useState(null);
 
-  const date = format(selectedDate, 'PP')
+  const date = format(selectedDate, 'PP');
 
-  const { data: appointmentOptions = [], refetch ,isLoading } = useQuery({
-    queryKey: ['appointmentOptions',date],
+  const {
+    data: appointmentOptions = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ['appointmentOptions', date],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/appointmentOptions?date=${date}`);
+      const res = await fetch(
+        `https://doctors-portal-server-beta-dun.vercel.app/appointmentOptions?date=${date}`
+      );
       const data = await res.json();
       return data;
     },
   });
 
-  if(isLoading){
-    return <Loader></Loader>
+  if (isLoading) {
+    return <Loader></Loader>;
   }
 
   // useEffect(() => {
-  //     fetch('http://localhost:5000/appointmentOptions')
+  //     fetch('https://doctors-portal-server-beta-dun.vercel.app/appointmentOptions')
   //         .then(res => res.json())
   //         .then(data => setAppointmentOptions(data))
   // }, [])
-
-
 
   return (
     <section className="my-16 max-w-7xl mx-auto">
@@ -50,8 +54,7 @@ const AvailAppointment = ({ selectedDate }) => {
           selectedDate={selectedDate}
           treatment={treatment}
           setTreatment={setTreatment}
-          refetch={refetch}
-          ></BookingModal>
+          refetch={refetch}></BookingModal>
       )}
     </section>
   );

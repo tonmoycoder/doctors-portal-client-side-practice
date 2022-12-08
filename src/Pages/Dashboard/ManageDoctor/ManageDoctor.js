@@ -9,7 +9,7 @@ const ManageDoctor = () => {
 
   const handleDelete = (doctormama) => {
     console.log(doctormama);
-    fetch(`http://localhost:5000/doctors/${doctormama._id}`, {
+    fetch(`https://doctors-portal-server-beta-dun.vercel.app/doctors/${doctormama._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -20,7 +20,7 @@ const ManageDoctor = () => {
         if (data.deletedCount) {
           console.log(data);
           refetch();
-          toast.success('albida mama. abar dakha hobe')
+          toast.success('albida mama. abar dakha hobe');
         }
       });
   };
@@ -35,7 +35,7 @@ const ManageDoctor = () => {
     queryKey: ['doctors'],
     queryFn: async () => {
       try {
-        const res = await fetch('http://localhost:5000/doctors', {
+        const res = await fetch('https://doctors-portal-server-beta-dun.vercel.app/doctors', {
           headers: {
             authorization: `bearer ${localStorage.getItem('accessToken')}`,
           },

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Loader from '../../Shared/Loader';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../Shared/Loader';
 
 const AddDoctor = () => {
   const {
@@ -19,7 +19,9 @@ const AddDoctor = () => {
   const { data: specialties, isLoading } = useQuery({
     queryKey: ['specialty'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/appointmentSpecialty');
+      const res = await fetch(
+        'https://doctors-portal-server-beta-dun.vercel.app/appointmentSpecialty'
+      );
       const data = await res.json();
       return data;
     },
@@ -44,21 +46,22 @@ const AddDoctor = () => {
             specialty: data.specialty,
             img: imgData.data.url,
           };
-          fetch('http://localhost:5000/doctors',{
+          fetch('https://doctors-portal-server-beta-dun.vercel.app/doctors', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',
-              authorization: `Bearer ${localStorage.getItem('accessToken')}`
+              authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
-            body: JSON.stringify(doctor)
+            body: JSON.stringify(doctor),
           })
-          .then((res) => res.json())
-          .then(data=> {console.log(data)
-          if(data.insertedId){
-            toast.success(`post ${data.insertedId} complete ${data.name}`);
-            hachkaTan('/dashboard/manageDoctors')
-          }
-          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              if (data.insertedId) {
+                toast.success(`post ${data.insertedId} complete ${data.name}`);
+                hachkaTan('/dashboard/manageDoctors');
+              }
+            });
         }
       });
   };
